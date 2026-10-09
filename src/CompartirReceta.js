@@ -1,51 +1,115 @@
+
 import { useState } from "react";
 
 function CompartirReceta() {
   const [recetaCompleta, setRecetaCompleta] = useState(false);
+  const [enviado, setEnviado] = useState(false);
+
+  function manejarEnvio(evento) {
+    evento.preventDefault();
+
+    setEnviado(true);
+
+    // Limpiamos los campos después del envío
+    evento.currentTarget.reset();
+    setRecetaCompleta(false);
+  }
 
   return (
-    <main>
+    <main className="formulario-seccion">
+      <h2>Compartinos tu receta</h2>
 
-      <section id="formulario" className="formulario-seccion">
+      <p>
+        ¿Tenés una receta que te encanta?
+        ¡Nos gustaría conocerla!
+      </p>
 
-        <h2>Compartí tu receta</h2>
+      {enviado && (
+        <p className="mensaje-exito" role="status">
+          ¡Gracias por compartir tu receta!
+          El formulario se envió correctamente.
+        </p>
+      )}
 
-        <p>¡Ayúdanos a compartir más recetas deliciosas!</p>
+      <form
+        className="formulario-recetas"
+        onSubmit={manejarEnvio}
+      >
+        <label htmlFor="nombre">
+          Tu nombre
+        </label>
+        <input
+          id="nombre"
+          name="nombre"
+          type="text"
+          placeholder="Escribí tu nombre"
+          required
+        />
 
-        <form className="formulario-recetas">
+        <label htmlFor="email">
+          Tu email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="ejemplo@correo.com"
+          required
+        />
 
-          <label htmlFor="nombre">Tu nombre</label>
+        <label htmlFor="tituloReceta">
+          Nombre de la receta
+        </label>
+        <input
+          id="tituloReceta"
+          name="tituloReceta"
+          type="text"
+          placeholder="Ej.: Tarta de manzana"
+          required
+        />
 
-          <input id="nombre" type="text" required />
+        <label className="casilla-receta">
+          <input
+            type="checkbox"
+            name="recetaCompleta"
+            checked={recetaCompleta}
+            onChange={(evento) => {
+              setRecetaCompleta(evento.target.checked);
+            }}
+          />
+          Quiero compartir la receta completa
+        </label>
 
-          <label htmlFor="email">Tu email</label>
+        {recetaCompleta && (
+          <>
+            <label htmlFor="ingredientes">
+              Ingredientes
+            </label>
+            <textarea
+              id="ingredientes"
+              name="ingredientes"
+              rows="5"
+              placeholder="Escribí los ingredientes y sus cantidades..."
+              required
+            />
 
-          <input id="email" type="email" required />
+            <label htmlFor="preparacion">
+              Preparación
+            </label>
+            <textarea
+              id="preparacion"
+              name="preparacion"
+              rows="6"
+              placeholder="Contanos cómo preparar la receta..."
+              required
+            />
+          </>
+        )}
 
-          <label htmlFor="tituloReceta">Nombre de la receta</label>
-
-          <input id="tituloReceta" type="text" required />
-
-          <label className="casilla-receta">
-
-
-            <input type="checkbox" checked={recetaCompleta}onChange={(evento) => setRecetaCompleta(evento.target.checked)} />
-            Quiero compartir la receta completa
-          </label>
-
-          {recetaCompleta && (<><label htmlFor="ingredientes">Ingredientes</label><textarea id="ingredientes" rows="5" required/>
-
-              <label htmlFor="preparacion">Preparación</label>
-
-              <textarea id="preparacion" rows="6" required/></>
-          )}
-
-          <button type="submit">Enviar receta</button>
-
-        </form>
-
-      </section>
-
+        <button type="submit">
+          Enviar receta
+        </button>
+      </form>
     </main>
   );
 }
