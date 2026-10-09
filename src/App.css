@@ -1,0 +1,645 @@
+
+/* =========================================
+   RECETAS INVER — COZY WINTER
+   ========================================= */
+
+:root {
+  --verde-agua: #d9eae2;
+  --verde-agua-oscuro: #b8d3c7;
+  --verde-salvia: #8eafa0;
+  --verde-bosque: #31594d;
+  --verde-profundo: #24483d;
+  --crema: #faf8f0;
+  --crema-oscuro: #f0eee3;
+  --texto: #354f46;
+  --texto-suave: #71877c;
+  --borde: #dce7df;
+  --sombra: 0 10px 30px rgba(49, 89, 77, 0.09);
+}
+
+/* =========================================
+   CONFIGURACIÓN GENERAL
+   ========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(255, 255, 255, 0.75),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      var(--verde-agua) 0%,
+      #eaf1e9 45%,
+      var(--crema) 100%
+    );
+  color: var(--texto);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--verde-salvia);
+  outline-offset: 4px;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 6%;
+  background: rgba(250, 248, 240, 0.78);
+  border-bottom: 1px solid rgba(49, 89, 77, 0.1);
+}
+
+.header h1 {
+  margin: 0;
+  color: var(--verde-bosque);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.navegacion {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.boton-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 20px;
+  border: 1px solid var(--verde-agua-oscuro);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.45);
+  color: var(--verde-bosque);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.boton-nav:hover {
+  transform: translateY(-2px);
+  background: var(--verde-agua);
+  box-shadow: 0 4px 12px rgba(49, 89, 77, 0.1);
+}
+
+.boton-nav.boton-destacado {
+  border-color: var(--verde-bosque);
+  background: var(--verde-bosque);
+  color: var(--crema);
+}
+
+.boton-nav.boton-destacado:hover {
+  background: var(--verde-profundo);
+}
+
+/* =========================================
+   SECCIÓN DEL CARRUSEL
+   ========================================= */
+
+.Carrusel-seccion {
+  width: min(1200px, 90%);
+  margin: 48px auto 64px;
+}
+
+.Carrusel-seccion > h2 {
+  margin: 0 0 26px;
+  color: var(--verde-bosque);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  text-align: center;
+}
+
+/* =========================================
+   TARJETA PRINCIPAL
+   ========================================= */
+
+.App-article {
+  display: flex;
+  flex-direction: column;
+
+  /* Altura uniforme en escritorio */
+  height: 760px;
+  min-height: 0;
+
+  overflow: hidden;
+  padding: clamp(20px, 3vw, 36px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 28px;
+  background: rgba(250, 248, 240, 0.96);
+  box-shadow: var(--sombra);
+}
+
+.App-article > h2 {
+  flex: 0 0 auto;
+  margin: 0 0 6px;
+  color: var(--verde-bosque);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.App-article > p {
+  flex: 0 0 auto;
+  margin: 8px 0;
+  color: var(--texto-suave);
+  font-size: 1.05rem;
+}
+
+.App-article .receta-contador {
+  align-self: flex-start;
+  margin: 12px 0 20px;
+  padding: 6px 15px;
+  border: 1px solid var(--verde-agua-oscuro);
+  border-radius: 30px;
+  background: var(--verde-agua);
+  color: var(--verde-bosque);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* =========================================
+   CONTENIDO DE LA RECETA
+   ========================================= */
+
+.receta-contenido {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: stretch;
+
+  /* Ocupa el espacio restante de la tarjeta */
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+/* Imagen */
+
+.receta-contenido > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 5px 16px rgba(49, 89, 77, 0.12);
+}
+
+/* Columnas de información */
+
+.receta-detalles {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.receta-ingredientes,
+.receta-instrucciones {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  padding: 18px;
+  overflow: hidden;
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  background: linear-gradient(
+    145deg,
+    #f1f5ed,
+    #e8f0e9
+  );
+}
+
+.receta-ingredientes h3,
+.receta-instrucciones h3 {
+  flex: 0 0 auto;
+  margin: 0 0 14px;
+  color: var(--verde-bosque);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+/* Las listas se desplazan si tienen mucho contenido */
+
+.receta-ingredientes ul,
+.receta-instrucciones ol {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0 8px 0 22px;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  scrollbar-width: thin;
+  scrollbar-color: var(--verde-salvia) transparent;
+}
+
+.receta-ingredientes li,
+.receta-instrucciones li {
+  padding-left: 3px;
+  margin-bottom: 12px;
+  color: var(--texto);
+  line-height: 1.6;
+}
+
+.receta-ingredientes li::marker,
+.receta-instrucciones li::marker {
+  color: var(--verde-salvia);
+  font-weight: 700;
+}
+
+/* Scrollbar para navegadores Chromium */
+
+.receta-ingredientes ul::-webkit-scrollbar,
+.receta-instrucciones ol::-webkit-scrollbar {
+  width: 6px;
+}
+
+.receta-ingredientes ul::-webkit-scrollbar-thumb,
+.receta-instrucciones ol::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: var(--verde-salvia);
+}
+
+.receta-ingredientes ul::-webkit-scrollbar-track,
+.receta-instrucciones ol::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* =========================================
+   BOTONES DEL CARRUSEL
+   ========================================= */
+
+.Carrusel-botones {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 22px;
+}
+
+.Carrusel-botones button {
+  min-width: 145px;
+  padding: 12px 24px;
+  border: 1px solid var(--verde-agua-oscuro);
+  border-radius: 30px;
+  background: transparent;
+  color: var(--verde-bosque);
+  cursor: pointer;
+  font-weight: 700;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.Carrusel-botones button:hover {
+  transform: translateY(-2px);
+  background: var(--verde-agua);
+}
+
+.Carrusel-botones button:last-child {
+  border-color: var(--verde-bosque);
+  background: var(--verde-bosque);
+  color: var(--crema);
+}
+
+.Carrusel-botones button:last-child:hover {
+  background: var(--verde-profundo);
+}
+
+/* =========================================
+   FORMULARIO
+   ========================================= */
+
+.formulario-seccion {
+  width: min(720px, 90%);
+  margin: 48px auto 70px;
+  padding: clamp(24px, 5vw, 44px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 26px;
+  background: rgba(250, 248, 240, 0.96);
+  box-shadow: var(--sombra);
+}
+
+.formulario-seccion > h2 {
+  margin: 0 0 8px;
+  color: var(--verde-bosque);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  text-align: center;
+}
+
+.formulario-seccion > p {
+  margin: 0 0 28px;
+  color: var(--texto-suave);
+  text-align: center;
+}
+
+.formulario-recetas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formulario-recetas > label {
+  margin-top: 8px;
+  color: var(--verde-bosque);
+  font-weight: 700;
+}
+
+.formulario-recetas input:not([type="checkbox"]),
+.formulario-recetas textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #cbdcd1;
+  border-radius: 12px;
+  background: #fffef9;
+  color: var(--texto);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.formulario-recetas input:not([type="checkbox"]):focus,
+.formulario-recetas textarea:focus {
+  border-color: var(--verde-salvia);
+  box-shadow: 0 0 0 3px rgba(142, 175, 160, 0.18);
+  outline: none;
+}
+
+.formulario-recetas textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.formulario-recetas .casilla-receta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0;
+  padding: 14px;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: #f0f5ef;
+  cursor: pointer;
+}
+
+.casilla-receta input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  accent-color: var(--verde-bosque);
+  cursor: pointer;
+}
+
+.formulario-recetas > button {
+  margin-top: 16px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 30px;
+  background: var(--verde-bosque);
+  color: var(--crema);
+  cursor: pointer;
+  font-weight: 700;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.formulario-recetas > button:hover {
+  transform: translateY(-2px);
+  background: var(--verde-profundo);
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.App-footer {
+  padding: 24px 5%;
+  background: var(--verde-bosque);
+  color: #edf4eb;
+  text-align: center;
+}
+
+.App-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   TABLETS
+   ========================================= */
+
+@media (max-width: 1000px) {
+  .App-article {
+    height: 800px;
+    padding: 24px;
+  }
+
+  .receta-contenido {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 16px;
+  }
+
+  .receta-detalles {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .receta-ingredientes,
+  .receta-instrucciones {
+    padding: 14px;
+  }
+
+  .receta-ingredientes h3,
+  .receta-instrucciones h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* =========================================
+   CELULARES
+   ========================================= */
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 20px 5%;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .navegacion {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .boton-nav {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+
+  .Carrusel-seccion {
+    width: 92%;
+    margin: 30px auto 42px;
+  }
+
+  .Carrusel-seccion > h2 {
+    margin-bottom: 18px;
+    font-size: 1.9rem;
+  }
+
+  .App-article {
+    height: auto;
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .App-article > h2 {
+    font-size: 1.8rem;
+  }
+
+  .App-article .receta-contador {
+    margin-bottom: 18px;
+  }
+
+  .receta-contenido {
+    display: flex;
+    flex-direction: column;
+    flex: initial;
+    gap: 16px;
+  }
+
+  .receta-contenido > img {
+    width: 100%;
+    height: 260px;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .receta-detalles {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 14px;
+  }
+
+  .receta-ingredientes,
+  .receta-instrucciones {
+    height: auto;
+    min-height: 0;
+    max-height: 300px;
+    padding: 18px;
+  }
+
+  .receta-ingredientes ul,
+  .receta-instrucciones ol {
+    flex: initial;
+    min-height: 0;
+    max-height: 220px;
+  }
+
+  .Carrusel-botones {
+    margin-top: 0;
+    padding-top: 22px;
+    gap: 10px;
+  }
+
+  .Carrusel-botones button {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 12px;
+  }
+
+  .formulario-seccion {
+    width: 92%;
+    margin: 30px auto 42px;
+    padding: 22px 18px;
+    border-radius: 20px;
+  }
+
+  .formulario-seccion > h2 {
+    font-size: 1.9rem;
+  }
+}
+
+/* =========================================
+   PANTALLAS MUY ESTRECHAS
+   ========================================= */
+
+@media (max-width: 360px) {
+  .navegacion {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .boton-nav {
+    width: 100%;
+  }
+
+  .App-article {
+    padding: 14px;
+  }
+
+  .Carrusel-botones button {
+    padding: 10px 8px;
+    font-size: 0.9rem;
+  }
+}
